@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thoracic Surgeons Map - New England</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 90vh; width: 100%; }
+    body { margin: 0; font-family: Arial, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([42.1, -71.5], 8);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    const hospitals = [
+      { name: "Mass General Hospital", location: "Fruit Street, Boston, MA", coords: [42.3626, -71.0695], surgeons: "MGH Thoracic Faculty" },
+      { name: "Brigham and Women's Hospital", location: "Francis Street, Boston, MA", coords: [42.3364, -71.1056], surgeons: "BWH Thoracic Faculty" },
+      { name: "South Shore Hospital", location: "South Weymouth, MA", coords: [42.1758, -70.9494], surgeons: "Chris Ducko, MD<br>Michael Jaklitsch, MD<br>Jon Wee, MD<br>Hassan Khalil, MD" },
+      { name: "Kent Hospital, Care New England", location: "Warwick, RI", coords: [41.7001, -71.4378], surgeons: "Ciaran McNamee, MD<br>Matt Pommerening, MD<br>Ealaf Shemmeri, MD<br>Desiree Steimer, MD" },
+      { name: "Milford Regional Medical Center", location: "Milford, MA", coords: [42.1445, -71.5225], surgeons: "Matt Rochefort, MD<br>John Wain, MD" },
+      { name: "West Roxbury VA Medical Center", location: "West Roxbury, MA", coords: [42.2802, -71.1654], surgeons: "Dan Wiener, MD<br>Fatima Wilder, MD" },
+      { name: "Wentworth-Douglass Hospital", location: "Dover, NH", coords: [43.2001, -70.8778], surgeons: "TBD" },
+      { name: "Cooley Dickinson Hospital", location: "Northampton, MA", coords: [42.3251, -72.6412], surgeons: "Michael Lanuti, MD" },
+      { name: "Emerson Hospital", location: "Concord, MA", coords: [42.4578, -71.3592], surgeons: "Hugh Auchincloss, MD<br>Uma Sachdeva, MD" },
+      { name: "Eliot Health", location: "Manchester, NH", coords: [42.9956, -71.4548], surgeons: "Yolanda Colson, MD" },
+      { name: "Southern NHMC", location: "Nashua, NH", coords: [42.7654, -71.4676], surgeons: "Jeff Yang, MD" },
+      { name: "BWH Multi-D Clinic, Patriots Place", location: "Foxborough, MA", coords: [42.0657, -71.2478], surgeons: "Hassan Khalil, MD" },
+      { name: "DFCI, Chestnut Hill", location: "Chestnut Hill, MA", coords: [42.3194, -71.1677], surgeons: "Paula Ugalde, MD" },
+      { name: "BWH Multi-D Clinic", location: "Weymouth, MA", coords: [42.2095, -70.9403], surgeons: "Hassan Khalil, MD" }
+    ];
+    hospitals.forEach(hospital => {
+      const marker = L.marker(hospital.coords).addTo(map);
+      const popupContent = `
+        <strong>${hospital.name}</strong><br>
+        ${hospital.location}<br><br>
+        <u>Thoracic Surgeons:</u><br>
+        ${hospital.surgeons}
+      `;
+      marker.bindPopup(popupContent);
+    });
+  </script>
+</body>
+</html>
